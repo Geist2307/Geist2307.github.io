@@ -1,5 +1,93 @@
 /* fonts.css */
 
+
+/* Navigation Bar Styles */
+nav {
+    background-color: #333;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px 0;
+    z-index: 100;
+}
+
+.nav-links {
+    display: flex;
+    justify-content: center;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-links li {
+    margin: 0 15px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: white;
+    font-size: 1.2em;
+    font-family: 'Arial', sans-serif;
+}
+
+.nav-links a:hover {
+    color: #007BFF;
+}
+
+body {
+    margin-top: 60px;  /* Offset for the fixed nav */
+}
+
+
+.intro-block {
+    display: flex;  /* Enable flexbox layout */
+    align-items: center;  /* Vertically center the content */
+    background-color: #f4f4f9;
+    padding: 30px;
+    margin: 20px 0;  /* Remove left and right margins to let the block stretch fully */
+    width: 100%;  /* Make the block take up the full width of the page */
+    border-radius: 0;  /* No rounded corners since we want the block to span the width */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    font-size: 1.2em;
+}
+
+.profile-img {
+    width: 250px;  /* Set width of the image */
+    height: 250px;  /* Set height of the image */
+    border-radius: 100%;  /* Make the image circular */
+    margin-right: 100px;  /* Space between image and text */
+    object-fit: cover;  /* Ensure the image maintains its aspect ratio and covers the area */
+}
+
+.intro-text {
+    flex: 1;  /* Allow the text to take up the remaining space */
+}
+
+.intro-block h1 {
+    font-family: 'Abril Fatface', cursive;
+    font-size: 2.5em;
+    margin-bottom: 15px;
+    color: #333;  /* Dark color for the name */
+}
+
+.intro-block p {
+    font-family: 'Arapey', serif;
+    color: #555;  /* Slightly lighter color for the text */
+    line-height: 1.6;  /* Increase line height for better readability */
+    margin-bottom: 10px;  /* Space between paragraphs */
+}
+
+.intro-block a {
+    color: #007BFF;  /* Blue color for links */
+    text-decoration: none;  /* Remove underlines */
+}
+
+.intro-block a:hover {
+    text-decoration: underline;  /* Add underline on hover for links */
+}
+
+
 body {
     font-family: Arial, sans-serif;
 }
@@ -10,9 +98,58 @@ h1, h2, h3 {
 
 p {
     font-family: 'Arapey', serif;
+    line-height: 1.6;
+    font-size: 1.2em;
+    color: #555;
+    margin-bottom: 20px;
 }
 
+/* Section Styling */
 .section {
     background-color: lightblue;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Navigation Bar */
+nav {
+    background-color: #333;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    margin: 0 10px;
+    font-size: 1.1em;
+}
+
+nav a:hover {
+    background-color: #575757;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    body {
+        font-size: 16px;
+    }
+
+    nav {
+        text-align: left;
+        padding: 10px;
+    }
+
+    .section {
+        margin: 10px;
+        padding: 15px;
+    }
 }
 
