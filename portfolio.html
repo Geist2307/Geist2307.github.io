@@ -36,7 +36,7 @@
             const repos = await response.json();
     
             // Filter repos that have a description
-            const excludedRepos = ["Geist2307.github.io", "Geist2307"];
+            const excludedRepos = ["Geist2307.github.io", "Geist2307", "DS-Tutorials"];
             const filteredRepos = repos.filter(repo => 
                 repo.description && 
                 repo.description.trim() !== "" && 
