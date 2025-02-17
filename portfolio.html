@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Andrei Bleahu</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    
+        <h1>My Github Portfolio</h1>
+
+<!-- Navigation bar -->
+<nav>
+    <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="education.html">Education</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="blog.html">Data Science Blog</a></li>
+    </ul>
+</nav>
+
+
+
+    <section id="portfolio-container">
+        <h2>My GitHub Projects</h2>
+        <div id="projects"></div>
+    </section>
+
+  
+
+    <script>
+        async function fetchGitHubProjects() {
+            const username = "Geist2307"; 
+            const response = await fetch(`https://api.github.com/users/${username}/repos`);
+            const repos = await response.json();
+    
+            // Filter repos that have a description
+            const excludedRepos = ["Geist2307.github.io", "Geist2307"];
+            const filteredRepos = repos.filter(repo => 
+                repo.description && 
+                repo.description.trim() !== "" && 
+                !excludedRepos.includes(repo.name)
+            );
+    
+            // Generate the HTML for filtered repositories
+            let projectsHTML = "";
+            filteredRepos.forEach(repo => {
+                projectsHTML += `
+                    <div class="portfolio-item">
+                        <h3><a href="${repo.html_url}" target="_blank">${repo.name}</a></h3>
+                        <p>${repo.description || "No description available."}</p>
+                    </div>
+                `;
+            });
+    
+            // Display the filtered projects
+            document.getElementById("projects").innerHTML = projectsHTML;
+        }
+    
+        fetchGitHubProjects();
+    </script>
+    
+</body>
+</html>
+
+
