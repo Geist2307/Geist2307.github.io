@@ -95,8 +95,8 @@ body {
 }
 
 .profile-img {
-    width: 250px;  /* Set width of the image */
-    height: 250px;  /* Set height of the image */
+    width: 400px;  /* Set width of the image */
+    height: 400px;  /* Set height of the image */
     border-radius: 100%;  /* Make the image circular */
     margin-right: 100px;  /* Space between image and text */
     object-fit: cover;  /* Ensure the image maintains its aspect ratio and covers the area */
@@ -115,13 +115,13 @@ body {
 
 .intro-block p {
     font-family: 'Arapey', serif;
-    color: #555;  /* Slightly lighter color for the text */
+    color: #210606;  /* Slightly lighter color for the text */
     line-height: 1.6;  /* Increase line height for better readability */
     margin-bottom: 10px;  /* Space between paragraphs */
 }
 
 .intro-block a {
-    color: #007BFF;  /* Blue color for links */
+    color: #064990;  /* Blue color for links */
     text-decoration: none;  /* Remove underlines */
 }
 
@@ -148,7 +148,7 @@ p {
 
 /* Section Styling */
 .section {
-    background-color: lightblue;
+    background-color: rgb(201, 210, 213);
     padding: 20px;
     margin: 20px 0;
     border-radius: 8px;
@@ -175,7 +175,7 @@ nav a {
 }
 
 nav a:hover {
-    background-color: #575757;
+    background-color: #aa1f1f;
 }
 
 /* Media Queries for Responsiveness */
