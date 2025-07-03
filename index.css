@@ -148,12 +148,33 @@ p {
 
 /* Section Styling */
 .section {
-    background-color: rgb(201, 210, 213);
-    padding: 20px;
-    margin: 20px 0;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;  /* Clean white background */
+    padding: 30px;
+    margin: 30px 0;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);  /* Slightly softer shadow */
 }
+
+h1, h2, h3 {
+    font-family: 'Abril Fatface', serif;
+    color: #2a2a2a;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+}
+
+p {
+    font-family: 'Arapey', serif;
+    font-size: 1.15em;
+    line-height: 1.8;
+    color: #444;
+    margin-bottom: 20px;
+}
+
+.section + .section {
+    border-top: 1px solid #e2e2e2;
+}
+
+
 
 /* Navigation Bar */
 nav {
@@ -194,4 +215,25 @@ nav a:hover {
         padding: 15px;
     }
 }
+
+.tldr-card {
+    background-color: #fefefe;
+    border: 1px solid #ccc;
+    border-left: 6px solid #007ACC;
+    border-radius: 8px;
+    padding: 16px 20px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+    margin-bottom: 30px;
+}
+
+.tldr-card strong {
+    display: block;
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+}
+
+.tldr-card p {
+    margin: 0;
+}
+
 
