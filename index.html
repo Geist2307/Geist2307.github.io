@@ -1,26 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Andrei-Ioan Bleahu — Data Scientist specialising in Bayesian ML and deep learning.">
+  <title>Andrei-Ioan Bleahu · Data Scientist</title>
+  <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    /* ── TOKENS ───────────────────────────────────────────────── */
+    :root {
+      --navy:       #0d1b2a;
+      --navy-mid:   #162336;
+      --navy-light: #1e3a5f;
+      --gold:       #c9a84c;
+      --gold-light: #e2c97e;
+      --gold-dim:   rgba(201,168,76,.15);
+      --cream:      #f5f0e8;
+      --cream-dim:  #ede7d9;
+      --text-main:  #1a1a2e;
+      --text-muted: #5a6472;
+      --white:      #ffffff;
+      --radius:     12px;
+      --transition: 0.3s ease;
+    }
 
+    /* ── RESET ────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
 
-/* ── SHARED PAGE STYLES (education, portfolio, blog) ──────── */
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--text-main);
+      line-height: 1.6;
+    }
 
-.page-hero {
-  background: var(--navy, #0d1b2a);
-  padding: 100px 40px 60px;
-  text-align: center;
-}
-.page-hero h1 {
-  font-family: 'Abril Fatface', cursive;
-  color: #ffffff;
-  font-size: clamp(2rem, 4vw, 3rem);
-  margin-bottom: 12px;
-}
-.page-hero p {
-  color: rgba(255,255,255,.6);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 1rem;
-}
+    /* ── NAV ──────────────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; width: 100%; z-index: 999;
+      background: rgba(13,27,42,.96);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(201,168,76,.2);
+      padding: 0 40px;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 60px;
+    }
+    .nav-logo {
+      font-family: 'Abril Fatface', cursive;
+      color: var(--gold);
+      font-size: 1.1rem;
+      letter-spacing: 1px;
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a {
+      color: rgba(255,255,255,.8);
+      text-decoration: none;
+      font-size: .9rem;
+      font-weight: 400;
+      letter-spacing: .5px;
+      transition: color var(--transition);
+    }
+    .nav-links a:hover { color: var(--gold-light); }
+    .nav-cta {
+      background: var(--gold);
+      color: var(--navy) !important;
+      padding: 7px 18px;
+      border-radius: 6px;
+      font-weight: 500 !important;
+      transition: background var(--transition) !important;
+    }
+    .nav-cta:hover { background: var(--gold-light) !important; color: var(--navy) !important; }
 
-.page-content {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 60px 32px;
+    /* ── HERO ─────────────────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      background: var(--navy);
+      display: flex; align-items: center;
+      padding: 100px 80px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* gold geometric accent */
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -120px; right: -120px;
+      width: 520px; height: 520px;
+      border-radius: 50%;
+      border: 1px solid rgba(201,168,76,.12);
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 380px; height: 380px;
+      border-radius: 50%;
+      border: 1px solid rgba(201,168,76,.08);
+    }
+
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 80px;
+      align-items: center;
+      max-width: 1100px;
+      margin: 0 auto;
+      width: 100%;
+      position: relative; z-index: 1;
+    }
+
+    .hero-eyebrow {
+      font-family: 'DM Sans', sans-serif;
+      font-size: .8rem;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+
+    .hero h1 {
+      font-family: 'Abril Fatface', cursive;
+      font-size: clamp(2.8rem, 5vw, 4.2rem);
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    .hero-tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem;
+      color: rgba(255,255,255,.65);
+      font-style: italic;
+      margin-bottom: 32px;
+      max-width: 520px;
+      line-height: 1.6;
+    }
+
+    .hero-contacts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 36px;
+    }
+    .contact-pill {
+      display: flex; align-items: center; gap: 7px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 100px;
+      padding: 7px 16px;
+      color: rgba(255,255,255,.75);
+      font-size: .85rem;
+      text-decoration: none;
+      transition: all var(--transition);
+    }
+    .contact-pill:hover {
+      background: var(--gold-dim);
+      border-color: rgba(201,168,76,.4);
+      color: var(--gold-light);
+    }
+    .contact-pill svg { flex-shrink: 0; }
+
+    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--gold);
+      color: var(--navy);
+      padding: 13px 28px;
+      border-radius: 8px;
+      font-weight: 500;
+      font-size: .95rem;
+      text-decoration: none;
+      transition: background var(--transition), transform var(--transition);
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+    .btn-secondary {
+      background: transparent;
+      color: rgba(255,255,255,.8);
+      border: 1px solid rgba(255,255,255,.25);
+      padding: 13px 28px;
+      border-radius: 8px;
+      font-weight: 400;
+      font-size: .95rem;
+      text-decoration: none;
+      transition: all var(--transition);
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn-secondary:hover {
+      border-color: var(--gold);
+      color: var(--gold-light);
+    }
+
+    /* Hero photo */
+    .hero-photo-wrap {
+      position: relative;
+    }
+    .hero-photo-wrap::before {
+      content: '';
+      position: absolute;
+      inset: -8px;
+      border-radius: 50%;
+      border: 2px solid rgba(201,168,76,.35);
+    }
+    .hero-photo-wrap::after {
+      content: '';
+      position: absolute;
+      inset: -20px;
+      border-radius: 50%;
+      border: 1px solid rgba(201,168,76,.12);
+    }
+    .hero-photo {
+      width: 340px; height: 340px;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+      position: relative; z-index: 1;
+      filter: grayscale(15%);
+    }
+
+    /* ── STATS BAR ────────────────────────────────────────────── */
+    .stats-bar {
+      background: var(--navy-mid);
+      border-top: 1px solid rgba(201,168,76,.15);
+      border-bottom: 1px solid rgba(201,168,76,.15);
+      padding: 28px 80px;
+    }
+    .stats-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+    .stat {
+      text-align: center;
+    }
+    .stat-number {
+      font-family: 'Abril Fatface', cursive;
+      font-size: 2rem;
+      color: var(--gold);
+      display: block;
+    }
+    .stat-label {
+      font-size: .8rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.5);
+      margin-top: 2px;
+    }
+
+    /* ── SECTION WRAPPER ──────────────────────────────────────── */
+    .section-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 80px 40px;
+    }
+
+    .section-label {
+      font-size: .75rem;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-family: 'Abril Fatface', cursive;
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      color: var(--navy);
+      margin-bottom: 48px;
+      line-height: 1.2;
+    }
+
+    /* ── TLDR ─────────────────────────────────────────────────── */
+    .tldr {
+      background: var(--navy);
+      color: var(--white);
+      padding: 0;
+    }
+    .tldr .section-wrap { padding: 80px 40px; }
+    .tldr .section-label { color: var(--gold); }
+    .tldr .section-title { color: var(--white); margin-bottom: 24px; }
+
+    .tldr-body {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      line-height: 1.8;
+      color: rgba(255,255,255,.8);
+      max-width: 780px;
+      margin-bottom: 40px;
+    }
+    .tldr-body strong { color: var(--gold-light); font-weight: 600; }
+
+    .highlight-pills {
+      display: flex; flex-wrap: wrap; gap: 12px;
+    }
+    .pill {
+      background: var(--gold-dim);
+      border: 1px solid rgba(201,168,76,.3);
+      color: var(--gold-light);
+      padding: 8px 18px;
+      border-radius: 100px;
+      font-size: .85rem;
+      font-weight: 500;
+    }
+
+    /* ── TIMELINE ─────────────────────────────────────────────── */
+    .timeline { position: relative; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 22px; top: 0; bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--gold), rgba(201,168,76,.1));
+    }
+
+    .tl-item {
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 24px;
+      margin-bottom: 48px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp .5s ease forwards;
+    }
+    .tl-item:nth-child(1) { animation-delay: .1s; }
+    .tl-item:nth-child(2) { animation-delay: .2s; }
+    .tl-item:nth-child(3) { animation-delay: .3s; }
+    .tl-item:nth-child(4) { animation-delay: .4s; }
+    .tl-item:nth-child(5) { animation-delay: .5s; }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .tl-dot {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: var(--navy);
+      border: 2px solid var(--gold);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      position: relative; z-index: 1;
+      font-size: 1.1rem;
+    }
+
+    .tl-content {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 24px 28px;
+      border: 1px solid var(--cream-dim);
+      box-shadow: 0 2px 12px rgba(0,0,0,.05);
+      transition: box-shadow var(--transition), transform var(--transition);
+    }
+    .tl-content:hover {
+      box-shadow: 0 6px 24px rgba(13,27,42,.1);
+      transform: translateY(-2px);
+    }
+
+    .tl-year {
+      font-size: .75rem;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 6px;
+    }
+    .tl-title {
+      font-family: 'Abril Fatface', cursive;
+      font-size: 1.15rem;
+      color: var(--navy);
+      margin-bottom: 4px;
+    }
+    .tl-place {
+      font-size: .9rem;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+      font-style: italic;
+    }
+    .tl-desc {
+      font-size: .95rem;
+      color: #444;
+      line-height: 1.7;
+    }
+    .tl-badge {
+      display: inline-block;
+      margin-top: 10px;
+      background: var(--gold-dim);
+      color: #7a5c00;
+      border: 1px solid rgba(201,168,76,.4);
+      border-radius: 100px;
+      padding: 3px 12px;
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: .5px;
+    }
+
+    /* ── SKILLS ───────────────────────────────────────────────── */
+    .skills-bg { background: var(--cream-dim); }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 20px;
+    }
+
+    .skill-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 22px 24px;
+      border: 1px solid rgba(0,0,0,.07);
+      box-shadow: 0 2px 8px rgba(0,0,0,.04);
+      transition: box-shadow var(--transition), transform var(--transition);
+    }
+    .skill-card:hover {
+      box-shadow: 0 8px 24px rgba(13,27,42,.1);
+      transform: translateY(-3px);
+    }
+    .skill-icon { font-size: 1.6rem; margin-bottom: 10px; }
+    .skill-name {
+      font-family: 'Abril Fatface', cursive;
+      font-size: 1rem;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .skill-tag {
+      background: var(--cream);
+      color: var(--text-muted);
+      border-radius: 4px;
+      padding: 3px 9px;
+      font-size: .78rem;
+    }
+
+    /* ── PUBLICATIONS ─────────────────────────────────────────── */
+    .pub-list { display: flex; flex-direction: column; gap: 20px; }
+    .pub-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 24px 28px;
+      border-left: 4px solid var(--gold);
+      box-shadow: 0 2px 8px rgba(0,0,0,.04);
+      display: flex; justify-content: space-between; align-items: flex-start;
+      gap: 20px;
+      transition: box-shadow var(--transition);
+    }
+    .pub-card:hover { box-shadow: 0 6px 20px rgba(0,0,0,.08); }
+    .pub-journal {
+      font-size: .75rem;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 6px;
+    }
+    .pub-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 6px;
+      line-height: 1.4;
+    }
+    .pub-meta { font-size: .85rem; color: var(--text-muted); }
+    .pub-link {
+      flex-shrink: 0;
+      background: var(--navy);
+      color: var(--gold-light);
+      padding: 8px 16px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: .82rem;
+      font-weight: 500;
+      white-space: nowrap;
+      transition: background var(--transition);
+    }
+    .pub-link:hover { background: var(--navy-light); }
+
+    /* ── FOOTER ───────────────────────────────────────────────── */
+    footer {
+      background: var(--navy);
+      color: rgba(255,255,255,.4);
+      text-align: center;
+      padding: 32px 40px;
+      font-size: .85rem;
+      border-top: 1px solid rgba(201,168,76,.15);
+    }
+    footer a { color: var(--gold); text-decoration: none; }
+
+    /* ── RESPONSIVE ───────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .hero { padding: 90px 32px 60px; }
+      .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+      .hero-photo { width: 220px; height: 220px; }
+      .hero-photo-wrap { justify-self: center; }
+      .stats-bar { padding: 24px 32px; }
+      .section-wrap { padding: 60px 24px; }
+      nav { padding: 0 24px; }
+      .pub-card { flex-direction: column; }
+    }
+    @media (max-width: 600px) {
+      .nav-links { gap: 16px; }
+      .nav-links li:not(:last-child) { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAV ──────────────────────────────────────────────── -->
+  <nav>
+    <a class="nav-logo" href="index.html">AIB</a>
+    <ul class="nav-links">
+      <li><a href="education.html">Education</a></li>
+      <li><a href="portfolio.html">Projects</a></li>
+      <li><a href="blog.html">Data Science Corner</a></li>
+      <li><a href="assets/AIB_CV.pdf" download class="nav-cta">↓ Download CV</a></li>
+    </ul>
+  </nav>
+
+  <!-- ── HERO ─────────────────────────────────────────────── -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <p class="hero-eyebrow">Data Scientist · Bayesian ML · Physics PhD background</p>
+        <h1>Andrei-Ioan<br>Bleahu</h1>
+        <p class="hero-tagline">Turning rigorous mathematics into lean, deployable machine learning — from Bayesian neural networks to edge-ready models.</p>
+
+        <div class="hero-contacts">
+          <a class="contact-pill" href="mailto:andreibleahu@gmail.com">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            andreibleahu@gmail.com
+          </a>
+          <a class="contact-pill" href="https://www.linkedin.com/in/andrei-ioan-bleahu-978896119/" target="_blank">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            LinkedIn
+          </a>
+          <span class="contact-pill">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+            Tartu, Estonia
+          </span>
+        </div>
+
+        <div class="hero-actions">
+          <a class="btn-primary" href="assets/AIB_CV.pdf" download>↓ Download CV</a>
+          <a class="btn-secondary" href="portfolio.html">View Projects →</a>
+        </div>
+      </div>
+
+      <div class="hero-photo-wrap">
+        <img class="hero-photo" src="AI.jpg" alt="Andrei-Ioan Bleahu">
+      </div>
+    </div>
+  </section>
+
+  <!-- ── STATS BAR ─────────────────────────────────────────── -->
+  <div class="stats-bar">
+    <div class="stats-inner">
+      <div class="stat">
+        <span class="stat-number">Distinction</span>
+        <span class="stat-label">MSc Data Science · St Andrews</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number">2×</span>
+        <span class="stat-label">Dean's List (90%+ avg)</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number">90%</span>
+        <span class="stat-label">Model size reduction (BNNs)</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number">2</span>
+        <span class="stat-label">Peer-reviewed publications</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TL;DR ─────────────────────────────────────────────── -->
+  <section class="tldr">
+    <div class="section-wrap">
+      <p class="section-label">Who I am</p>
+      <h2 class="section-title">Physicist. Researcher. Data Scientist.</h2>
+      <p class="tldr-body">
+        I began my career distinguishing myself in Romania's <strong>National Physics Olympiads</strong>, trained as a physicist at Southampton, and spent two years as a <strong>Junior Research Fellow</strong> at the University of Tartu publishing in peer-reviewed optics journals. Recognising the deep overlap between computational imaging and AI, I pivoted fully into data science — completing an <strong>MSc with Distinction at St Andrews</strong>, where my dissertation produced Bayesian Neural Networks up to <strong>90% smaller</strong> than their classical counterparts without sacrificing accuracy. I combine first-principles thinking with hands-on ML engineering to deliver solutions that are both theoretically sound and production-ready.
+      </p>
+      <div class="highlight-pills">
+        <span class="pill">Bayesian ML</span>
+        <span class="pill">PyTorch</span>
+        <span class="pill">PySpark</span>
+        <span class="pill">Scikit-Learn</span>
+        <span class="pill">Deep Learning</span>
+        <span class="pill">Computer Vision</span>
+        <span class="pill">GANs &amp; AutoEncoders</span>
+        <span class="pill">MATLAB</span>
+        <span class="pill">Python</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── TIMELINE ───────────────────────────────────────────── -->
+  <section>
+    <div class="section-wrap">
+      <p class="section-label">Career path</p>
+      <h2 class="section-title">The Journey So Far</h2>
+
+      <div class="timeline">
+
+        <div class="tl-item">
+          <div class="tl-dot">🏅</div>
+          <div class="tl-content">
+            <p class="tl-year">2009 – 2013</p>
+            <h3 class="tl-title">National Physics Olympiads</h3>
+            <p class="tl-place">Romania</p>
+            <p class="tl-desc">Consistently ranked top 10 nationally per year group; twice selected among the top 20 students of all years eligible to represent Romania internationally — placing in the top 0.25% of my generation in Physics.</p>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot">🎓</div>
+          <div class="tl-content">
+            <p class="tl-year">2014 – 2019</p>
+            <h3 class="tl-title">MPhys Physics</h3>
+            <p class="tl-place">University of Southampton</p>
+            <p class="tl-desc">Integrated Masters in Physics (2:1). Final-year project with the Optoelectronics Research Centre: experimental analysis of Hollow-Core fibres for phase stability in Quantum Repeater Architectures — awarded first-class honours (71%).</p>
+            <span class="tl-badge">2:1 Honours</span>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot">✍️</div>
+          <div class="tl-content">
+            <p class="tl-year">2020 – 2022</p>
+            <h3 class="tl-title">MA Semiotics</h3>
+            <p class="tl-place">University of Tartu</p>
+            <p class="tl-desc">Deliberately pursued an interdisciplinary challenge to sharpen critical thinking, argumentation and the ability to communicate complex ideas to non-technical audiences — a skill I use daily when translating model outputs into business insights.</p>
+            <span class="tl-badge">Grade B</span>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot">🔬</div>
+          <div class="tl-content">
+            <p class="tl-year">Aug 2022 – Jul 2023</p>
+            <h3 class="tl-title">Junior Research Fellow — Computational Imaging</h3>
+            <p class="tl-place">University of Tartu, Physics Dept.</p>
+            <p class="tl-desc">Developed the Lucy-Richardson-Rosen deconvolution algorithm; improved I-COACH and FINCH holographic techniques. First author on two peer-reviewed papers. Presented at SPIE Photonics Europe 2023 (Prague). Co-organised a 48-hr Computational Imaging Hackathon. Secured a French Government bursary to collaborate with the SINGULAR group at the University of Bordeaux.</p>
+            <span class="tl-badge">2 publications · 1st author</span>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot">⭐</div>
+          <div class="tl-content">
+            <p class="tl-year">2023 – 2025</p>
+            <h3 class="tl-title">MSc Data Science</h3>
+            <p class="tl-place">University of St Andrews</p>
+            <p class="tl-desc">Graduated with Distinction (highest classification). Dissertation: practical Bayesian Neural Networks that can be compressed up to 90% with no accuracy loss — enabling deployment on edge devices. End-to-end ML workflows with PyTorch, PySpark, and Scikit-Learn.</p>
+            <span class="tl-badge">Distinction · Dean's List ×2</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SKILLS ─────────────────────────────────────────────── -->
+  <section class="skills-bg">
+    <div class="section-wrap">
+      <p class="section-label">Technical toolkit</p>
+      <h2 class="section-title">Skills & Technologies</h2>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <div class="skill-icon">🧠</div>
+          <p class="skill-name">Bayesian & Probabilistic ML</p>
+          <div class="skill-tags">
+            <span class="skill-tag">Bayesian Neural Nets</span>
+            <span class="skill-tag">Uncertainty quantification</span>
+            <span class="skill-tag">Model compression</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon">🔥</div>
+          <p class="skill-name">Deep Learning</p>
+          <div class="skill-tags">
+            <span class="skill-tag">PyTorch</span>
+            <span class="skill-tag">CNNs</span>
+            <span class="skill-tag">GANs</span>
+            <span class="skill-tag">AutoEncoders</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon">📊</div>
+          <p class="skill-name">Classical ML & Data</p>
+          <div class="skill-tags">
+            <span class="skill-tag">Scikit-Learn</span>
+            <span class="skill-tag">PySpark</span>
+            <span class="skill-tag">Pandas</span>
+            <span class="skill-tag">NumPy</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon">🖼️</div>
+          <p class="skill-name">Computer Vision</p>
+          <div class="skill-tags">
+            <span class="skill-tag">Image reconstruction</span>
+            <span class="skill-tag">Deconvolution</span>
+            <span class="skill-tag">Holography</span>
+            <span class="skill-tag">MATLAB</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon">🐍</div>
+          <p class="skill-name">Programming</p>
+          <div class="skill-tags">
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">MATLAB</span>
+            <span class="skill-tag">SQL</span>
+            <span class="skill-tag">Git</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon">🗣️</div>
+          <p class="skill-name">Communication</p>
+          <div class="skill-tags">
+            <span class="skill-tag">Stakeholder reporting</span>
+            <span class="skill-tag">Conference talks</span>
+            <span class="skill-tag">Workshop facilitation</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PUBLICATIONS ───────────────────────────────────────── -->
+  <section>
+    <div class="section-wrap">
+      <p class="section-label">Research</p>
+      <h2 class="section-title">Peer-Reviewed Publications</h2>
+      <div class="pub-list">
+        <div class="pub-card">
+          <div>
+            <p class="pub-journal">Optics Express</p>
+            <p class="pub-title">First-authored paper on computational holographic imaging</p>
+            <p class="pub-meta">Optics Express, Vol. 31, Issue 16 · 2023</p>
+          </div>
+          <a class="pub-link" href="https://opg.optica.org/oe/fulltext.cfm?uri=oe-31-16-26120&id=535384" target="_blank">Read →</a>
+        </div>
+        <div class="pub-card">
+          <div>
+            <p class="pub-journal">Results in Physics</p>
+            <p class="pub-title">First-authored paper on image reconstruction algorithms</p>
+            <p class="pub-meta">Results in Physics · 2023</p>
+          </div>
+          <a class="pub-link" href="https://www.sciencedirect.com/science/article/pii/S2211379723006320" target="_blank">Read →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ─────────────────────────────────────────────── -->
+  <footer>
+    <p>© 2025 Andrei-Ioan Bleahu · <a href="mailto:andreibleahu@gmail.com">andreibleahu@gmail.com</a></p>
+  </footer>
+
+</body>
+</html>
 }
