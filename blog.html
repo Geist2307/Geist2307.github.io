@@ -1,90 +1,469 @@
 <!DOCTYPE html>
-
-
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Science Blog</title>
-    <link rel="stylesheet" href="index.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Data Science Corner — Bayesian ML tutorials by Andrei-Ioan Bleahu.">
+  <title>Data Science Corner · Andrei-Ioan Bleahu</title>
+  <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    /* ── TOKENS ───────────────────────────────────────────────── */
+    :root {
+      --navy:       #0d1b2a;
+      --navy-mid:   #162336;
+      --navy-light: #1e3a5f;
+      --gold:       #c9a84c;
+      --gold-light: #e2c97e;
+      --gold-dim:   rgba(201,168,76,.15);
+      --cream:      #f5f0e8;
+      --cream-dim:  #ede7d9;
+      --text-main:  #1a1a2e;
+      --text-muted: #5a6472;
+      --white:      #ffffff;
+      --radius:     12px;
+      --transition: 0.3s ease;
+    }
 
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--text-main);
+      line-height: 1.6;
+    }
+
+    /* ── NAV ─────────────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; width: 100%; z-index: 999;
+      background: rgba(13,27,42,.96);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(201,168,76,.2);
+      padding: 0 40px;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 60px;
+    }
+    .nav-logo {
+      font-family: 'Abril Fatface', cursive;
+      color: var(--gold);
+      font-size: 1.1rem;
+      letter-spacing: 1px;
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a {
+      color: rgba(255,255,255,.8);
+      text-decoration: none;
+      font-size: .9rem;
+      transition: color var(--transition);
+    }
+    .nav-links a:hover { color: var(--gold-light); }
+    .nav-links a.active { color: var(--gold-light); }
+    .nav-cta {
+      background: var(--gold);
+      color: var(--navy) !important;
+      padding: 7px 18px;
+      border-radius: 6px;
+      font-weight: 500 !important;
+    }
+    .nav-cta:hover { background: var(--gold-light) !important; }
+
+    /* ── PAGE HERO ───────────────────────────────────────────── */
+    .page-hero {
+      background: var(--navy);
+      padding: 110px 80px 70px;
+      position: relative;
+      overflow: hidden;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      top: -100px; right: -100px;
+      width: 420px; height: 420px;
+      border-radius: 50%;
+      border: 1px solid rgba(201,168,76,.1);
+      pointer-events: none;
+    }
+    .page-hero-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      position: relative; z-index: 1;
+    }
+    .page-eyebrow {
+      font-size: .75rem;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+    .page-hero h1 {
+      font-family: 'Abril Fatface', cursive;
+      font-size: clamp(2.2rem, 4vw, 3.4rem);
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+    .page-hero p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      color: rgba(255,255,255,.6);
+      font-style: italic;
+      max-width: 600px;
+    }
+
+    /* ── CONTENT ─────────────────────────────────────────────── */
+    .content-wrap {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 70px 40px 90px;
+    }
+
+    .section-label {
+      font-size: .75rem;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 28px;
+    }
+
+    /* ── TUTORIAL CARDS ──────────────────────────────────────── */
+    .tutorial-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      border: 1px solid rgba(0,0,0,.07);
+      box-shadow: 0 2px 12px rgba(0,0,0,.05);
+      margin-bottom: 28px;
+      overflow: hidden;
+      transition: box-shadow var(--transition), transform var(--transition);
+      animation: fadeUp .5s ease both;
+    }
+    .tutorial-card:nth-child(1) { animation-delay: .1s; }
+    .tutorial-card:nth-child(2) { animation-delay: .2s; }
+    .tutorial-card:nth-child(3) { animation-delay: .3s; }
+    .tutorial-card:hover {
+      box-shadow: 0 8px 28px rgba(13,27,42,.1);
+      transform: translateY(-2px);
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .card-bar {
+      height: 5px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    }
+
+    .card-body {
+      padding: 28px 32px;
+    }
+
+    /* Number + title row */
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 18px;
+      margin-bottom: 16px;
+    }
+    .card-number {
+      font-family: 'Abril Fatface', cursive;
+      font-size: 2rem;
+      color: var(--gold-dim);
+      line-height: 1;
+      flex-shrink: 0;
+      /* render the number visibly */
+      color: var(--gold);
+      opacity: .35;
+      min-width: 36px;
+    }
+    .card-title-wrap { flex: 1; }
+    .card-title {
+      font-family: 'Abril Fatface', cursive;
+      font-size: 1.15rem;
+      color: var(--navy);
+      line-height: 1.3;
+      margin-bottom: 4px;
+    }
+    .card-lang {
+      font-size: .75rem;
+      font-weight: 500;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    /* Description */
+    .card-desc {
+      font-size: .93rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+
+    /* Concepts list */
+    .concepts-label {
+      font-size: .72rem;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+    .concepts-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 22px;
+    }
+    .concept-tag {
+      background: var(--cream);
+      border: 1px solid var(--cream-dim);
+      color: var(--text-muted);
+      border-radius: 6px;
+      padding: 4px 12px;
+      font-size: .8rem;
+    }
+
+    /* Footer row */
+    .card-footer {
+      display: flex;
+      justify-content: flex-end;
+      padding-top: 16px;
+      border-top: 1px solid var(--cream-dim);
+    }
+    .notebook-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--navy);
+      color: var(--gold-light);
+      padding: 9px 20px;
+      border-radius: 7px;
+      text-decoration: none;
+      font-size: .83rem;
+      font-weight: 500;
+      transition: background var(--transition);
+    }
+    .notebook-link:hover { background: var(--navy-light); }
+
+    /* ── COMING SOON CARD ────────────────────────────────────── */
+    .coming-soon {
+      background: var(--navy);
+      border-radius: var(--radius);
+      padding: 32px;
+      text-align: center;
+      margin-top: 12px;
+      animation: fadeUp .5s ease .4s both;
+    }
+    .coming-soon p {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      color: rgba(255,255,255,.5);
+    }
+    .coming-soon span {
+      display: block;
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+
+    /* ── GITHUB CTA ──────────────────────────────────────────── */
+    .github-cta {
+      text-align: center;
+      margin-top: 56px;
+      padding-top: 48px;
+      border-top: 1px solid var(--cream-dim);
+    }
+    .github-cta p {
+      color: var(--text-muted);
+      font-size: .95rem;
+      margin-bottom: 16px;
+    }
+    .btn-github {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--navy);
+      color: var(--gold-light);
+      padding: 13px 28px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .95rem;
+      transition: background var(--transition), transform var(--transition);
+    }
+    .btn-github:hover { background: var(--navy-light); transform: translateY(-1px); }
+
+    /* ── FOOTER ──────────────────────────────────────────────── */
+    footer {
+      background: var(--navy);
+      color: rgba(255,255,255,.4);
+      text-align: center;
+      padding: 32px 40px;
+      font-size: .85rem;
+      border-top: 1px solid rgba(201,168,76,.15);
+    }
+    footer a { color: var(--gold); text-decoration: none; }
+
+    /* ── RESPONSIVE ──────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      nav { padding: 0 24px; }
+      .page-hero { padding: 90px 24px 50px; }
+      .content-wrap { padding: 40px 20px 60px; }
+      .card-body { padding: 22px 20px; }
+    }
+    @media (max-width: 600px) {
+      .nav-links { gap: 16px; }
+      .nav-links li:not(:last-child) { display: none; }
+    }
+  </style>
 </head>
-
-
-
 <body>
 
-
-    <!-- Navigation bar -->
-<nav>
+  <!-- ── NAV ──────────────────────────────────────────────── -->
+  <nav>
+    <a class="nav-logo" href="index.html">AIB</a>
     <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="education.html">Education</a></li>
-        <li><a href="portfolio.html">Personal Projects</a></li>
-        <li><a href="blog.html">Data Science Corner</a></li>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="education.html">Education</a></li>
+      <li><a href="portfolio.html">Projects</a></li>
+      <li><a href="blog.html" class="active">Data Science Corner</a></li>
+      <li><a href="assets/AIB_CV.pdf" download class="nav-cta">↓ Download CV</a></li>
     </ul>
-</nav>
+  </nav>
 
+  <!-- ── PAGE HERO ─────────────────────────────────────────── -->
+  <header class="page-hero">
+    <div class="page-hero-inner">
+      <p class="page-eyebrow">Tutorials & Notebooks</p>
+      <h1>Data Science Corner</h1>
+      <p>First-principles Bayesian ML — from the mathematics to working code, one notebook at a time.</p>
+    </div>
+  </header>
 
-    <section id="blog">
-        <h1>Data Science Corner</h1>
-        <p>Here are some quick links to some Jupyter Notebooks with key methods in Data Science.</p>
+  <!-- ── CONTENT ───────────────────────────────────────────── -->
+  <main class="content-wrap">
 
-        <!-- Links to tutorial notebooks -->
-        <div class="tutorial">
-            <h3><a href="https://github.com/Geist2307/DS-Tutorials/blob/master/Notebooks/LaplaceApproximationLogisticRegression.ipynb" target="_blank">
-                Tutorial 1: LaPlace Approximation for Logistic Regression</a></h3>
-            <p>Basic LaPlace approximation for Logistic Regression</p>
+    <p class="section-label">Jupyter Notebooks</p>
+
+    <!-- Tutorial 1 -->
+    <div class="tutorial-card">
+      <div class="card-bar"></div>
+      <div class="card-body">
+        <div class="card-header">
+          <span class="card-number">01</span>
+          <div class="card-title-wrap">
+            <h2 class="card-title">Laplace Approximation for Logistic Regression</h2>
+            <span class="card-lang">Python · Jupyter</span>
+          </div>
         </div>
-
-        <div class="tutorial">
-            <h3><a href="https://github.com/Geist2307/DS-Tutorials/blob/master/Notebooks/FixedBasisRegression_Bayesian.ipynb" target="_blank">
-                Tutorial 2: Fixed Basis Regression and Variational Inference</a></h3>
-            <p>
-               Here I generate some synthethic univariate data and I demonstrate several methods
-               from mathematics to code in Julia. Everything implemented from first principles,
-               with emphasis on how to translate mathematics to code.
-               These are:
-
-               <ul>
-
-                <li>Maximum Likelihood Estimation(MLE)</li>
-                <li>Maximum a Posterior (MAP)</li>
-                <li> Gibbs Sampling</li>
-                <li>Mean Field Variational Inference</li>
-               </ul>
-            
-            </p>
+        <p class="card-desc">
+          A ground-up implementation of the Laplace approximation applied to logistic regression — turning a point estimate into a full posterior distribution with minimal overhead.
+        </p>
+        <p class="concepts-label">Concepts Covered</p>
+        <div class="concepts-list">
+          <span class="concept-tag">Laplace Approximation</span>
+          <span class="concept-tag">Logistic Regression</span>
+          <span class="concept-tag">Posterior Estimation</span>
+          <span class="concept-tag">Bayesian Inference</span>
         </div>
-
-        <div class="tutorial">
-            <h3><a href="https://github.com/Geist2307/DS-Tutorials/blob/master/Notebooks/BayesLogReg_Metropolis.ipynb" target="_blank">
-                Tutorial 3: Bayesian Logistic Regression via Metropolis</a></h3>
-            <p>Based on a Kaggle dataset I show:
-
-                 <ul>
-
-                <li>Basic pre-processing to bring data closer to i.i.d form</li>
-                <li>From scratch binary Logistic Regression </li>
-                <li> Uncertainty Estimation in the Bayesian approach</li>
-                <li>Comparison with off-the-shelf package GLM</li>
-
-                </ul>
-
-
-            </p>
+        <div class="card-footer">
+          <a class="notebook-link" href="https://github.com/Geist2307/DS-Tutorials/blob/master/Notebooks/LaplaceApproximationLogisticRegression.ipynb" target="_blank">
+            Open Notebook
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
         </div>
+      </div>
+    </div>
 
+    <!-- Tutorial 2 -->
+    <div class="tutorial-card">
+      <div class="card-bar"></div>
+      <div class="card-body">
+        <div class="card-header">
+          <span class="card-number">02</span>
+          <div class="card-title-wrap">
+            <h2 class="card-title">Fixed Basis Regression & Variational Inference</h2>
+            <span class="card-lang">Julia · Jupyter</span>
+          </div>
+        </div>
+        <p class="card-desc">
+          Synthetic univariate data is used as a playground to implement four inference methods entirely from first principles — with emphasis on translating mathematical derivations directly into code.
+        </p>
+        <p class="concepts-label">Concepts Covered</p>
+        <div class="concepts-list">
+          <span class="concept-tag">Maximum Likelihood (MLE)</span>
+          <span class="concept-tag">Maximum a Posteriori (MAP)</span>
+          <span class="concept-tag">Gibbs Sampling</span>
+          <span class="concept-tag">Mean Field Variational Inference</span>
+          <span class="concept-tag">Fixed Basis Functions</span>
+        </div>
+        <div class="card-footer">
+          <a class="notebook-link" href="https://github.com/Geist2307/DS-Tutorials/blob/master/Notebooks/FixedBasisRegression_Bayesian.ipynb" target="_blank">
+            Open Notebook
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
 
+    <!-- Tutorial 3 -->
+    <div class="tutorial-card">
+      <div class="card-bar"></div>
+      <div class="card-body">
+        <div class="card-header">
+          <span class="card-number">03</span>
+          <div class="card-title-wrap">
+            <h2 class="card-title">Bayesian Logistic Regression via Metropolis–Hastings</h2>
+            <span class="card-lang">Python · Jupyter</span>
+          </div>
+        </div>
+        <p class="card-desc">
+          A real Kaggle dataset drives this end-to-end walkthrough: preprocessing for i.i.d. assumptions, a scratch-built binary logistic regression, full Bayesian uncertainty estimation, and a head-to-head comparison with the GLM package.
+        </p>
+        <p class="concepts-label">Concepts Covered</p>
+        <div class="concepts-list">
+          <span class="concept-tag">Metropolis–Hastings MCMC</span>
+          <span class="concept-tag">Data Preprocessing</span>
+          <span class="concept-tag">Binary Logistic Regression</span>
+          <span class="concept-tag">Uncertainty Estimation</span>
+          <span class="concept-tag">GLM Comparison</span>
+        </div>
+        <div class="card-footer">
+          <a class="notebook-link" href="https://github.com/Geist2307/DS-Tutorials/blob/master/Notebooks/BayesLogReg_Metropolis.ipynb" target="_blank">
+            Open Notebook
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
 
-       
+    <!-- Coming soon -->
+    <div class="coming-soon">
+      <span>✍️</span>
+      <p>More notebooks on the way — Variational Autoencoders, Gaussian Processes, and Bayesian Neural Networks.</p>
+    </div>
 
-        <!-- More tutorials to come -->
-    </section>
+    <!-- GitHub CTA -->
+    <div class="github-cta">
+      <p>All notebooks are open source — browse or fork the full repo.</p>
+      <a class="btn-github" href="https://github.com/Geist2307/DS-Tutorials" target="_blank">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836a9.59 9.59 0 0 1 2.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.741 0 .267.18.579.688.481C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
+        </svg>
+        View DS-Tutorials on GitHub
+      </a>
+    </div>
 
-    <footer>
-        <p>© 2025 Andrei-Ioan Bleahu | All Rights Reserved</p>
-    </footer>
+  </main>
+
+  <!-- ── FOOTER ─────────────────────────────────────────────── */
+  <footer>
+    <p>© 2025 Andrei-Ioan Bleahu · <a href="mailto:andreibleahu@gmail.com">andreibleahu@gmail.com</a></p>
+  </footer>
+
 </body>
 </html>
