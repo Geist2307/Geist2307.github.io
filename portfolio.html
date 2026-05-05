@@ -371,6 +371,119 @@
       </div>
     </div>
 
+    <!-- ── PROFESSIONAL & COURSEWORK PROJECTS ─────────────────── -->
+  <div style="margin-top: 64px; padding-top: 48px; border-top: 1px solid var(--cream-dim);">
+    <p class="filter-label" style="margin-bottom: 8px;">Professional & Coursework</p>
+    <h2 style="font-family:'Abril Fatface',cursive; font-size:1.6rem; color:var(--navy); margin-bottom: 8px;">Private Projects</h2>
+    <p style="font-size:.9rem; color:var(--text-muted); margin-bottom: 32px;">Code is private or proprietary — architecture and approach available on request.</p>
+
+    <div class="projects-grid">
+
+    <!-- Maxibook -->
+    <div class="project-card">
+      <div class="card-top">
+        <span class="card-icon">⚙️</span>
+        <span class="lang-badge"><span class="lang-dot" style="background:#3572A5"></span>Python</span>
+      </div>
+      <p class="card-name">ATLAS Pipeline — Maxibook</p>
+      <p class="card-desc">Sole engineer on a 6-service production AI pipeline: outline generation, content enrichment, semantic clustering, and knowledge graph construction. Includes an end-to-end orchestrator with step caching and retry logic. Built with FastAPI, LangChain, Pydantic, Tavily search, and LLM-as-a-judge evaluation. Deployed on AWS EC2 via systemd.</p>
+      <div class="card-topics">
+        <span class="topic-tag">RAG</span>
+        <span class="topic-tag">FastAPI</span>
+        <span class="topic-tag">LangChain</span>
+        <span class="topic-tag">AWS EC2</span>
+        <span class="topic-tag">LLM-as-a-judge</span>
+        <span class="topic-tag">production</span>
+      </div>
+      <div class="card-footer" style="justify-content:flex-start; border-top: 1px solid var(--cream-dim); padding-top:12px;">
+        <span style="font-size:.82rem; color:var(--text-muted); font-style:italic;">Private codebase — architecture available on request</span>
+      </div>
+    </div>
+
+    <!-- CS5939 -->
+    <div class="project-card">
+      <div class="card-top">
+        <span class="card-icon">🖥️</span>
+        <span class="lang-badge"><span class="lang-dot" style="background:#3572A5"></span>Python</span>
+      </div>
+      <p class="card-name">Distributed Object Detection — CS5939</p>
+      <p class="card-desc">Client-server architecture for real-time object detection across two university VMs. Flask API serving YOLO on a cloud node; edge client with a live Dash dashboard on a second node. Includes an automated experiment runner collecting performance results across configurations.</p>
+      <div class="card-topics">
+        <span class="topic-tag">YOLO</span>
+        <span class="topic-tag">Flask</span>
+        <span class="topic-tag">client-server</span>
+        <span class="topic-tag">distributed-systems</span>
+        <span class="topic-tag">computer-vision</span>
+        <span class="topic-tag">Dash</span>
+      </div>
+      <div class="card-footer" style="justify-content:flex-start; border-top: 1px solid var(--cream-dim); padding-top:12px;">
+        <span style="font-size:.82rem; color:var(--text-muted); font-style:italic;">University coursework — code available to verified employers</span>
+      </div>
+    </div>
+
+    <!-- CS5959 -->
+    <div class="project-card">
+      <div class="card-top">
+        <span class="card-icon">📊</span>
+        <span class="lang-badge"><span class="lang-dot" style="background:#3572A5"></span>Python</span>
+      </div>
+      <p class="card-name">End-to-End ML Workflow — CS5959</p>
+      <p class="card-desc">Full ML pipeline from problem definition and EDA through modelling, tuning, and deployment. Worked on real anonymised datasets using PyTorch, Scikit-Learn, and PySpark. Includes a deployment component and stakeholder-facing reporting.</p>
+      <div class="card-topics">
+        <span class="topic-tag">end-to-end-ml</span>
+        <span class="topic-tag">PyTorch</span>
+        <span class="topic-tag">PySpark</span>
+        <span class="topic-tag">EDA</span>
+        <span class="topic-tag">deployment</span>
+      </div>
+      <div class="card-footer" style="justify-content:flex-start; border-top: 1px solid var(--cream-dim); padding-top:12px;">
+        <span style="font-size:.82rem; color:var(--text-muted); font-style:italic;">University coursework — code available to verified employers</span>
+      </div>
+    </div>
+
+    <!-- Classical ML Deployment -->
+    <div class="project-card">
+      <div class="card-top">
+        <span class="card-icon">🚀</span>
+        <span class="lang-badge"><span class="lang-dot" style="background:#3572A5"></span>Python</span>
+      </div>
+      <p class="card-name">End-to-end ML pipeline</p>
+      <p class="card-desc">EDA, ML model selection, experiments and deployment. Deployment is based on command-line serving of pre-trained Random Forest models via argparse and joblib. Accepts JSON input, routes to the correct stacked model based on cycle count, and returns predictions as JSON. A clean example of wrapping a pickled model in a deployable CLI interface.</p>
+      <div class="card-topics">
+        <span class="topic-tag">scikit-learn</span>
+        <span class="topic-tag">deployment</span>
+        <span class="topic-tag">CLI</span>
+        <span class="topic-tag">Random Forest</span>
+        <span class="topic-tag">JSON API</span>
+      </div>
+      <div class="card-footer" style="justify-content:flex-start; border-top: 1px solid var(--cream-dim); padding-top:12px;">
+        <span style="font-size:.82rem; color:var(--text-muted); font-style:italic;">University coursework — code available to verified employers</span>
+      </div>
+    </div>
+
+    <!-- London Fire Brigade -->
+    <div class="project-card">
+      <div class="card-top">
+        <span class="card-icon">🔥</span>
+        <span class="lang-badge"><span class="lang-dot" style="background:#3572A5"></span>Python</span>
+      </div>
+      <p class="card-name">London Fire Brigade — Geospatial Analysis</p>
+      <p class="card-desc">Loaded and pre-processed real London Fire Brigade incident data using PySpark, then built a Folium choropleth map visualising fire incident density across London boroughs. Combines distributed data processing with interactive geospatial visualisation.</p>
+      <div class="card-topics">
+        <span class="topic-tag">PySpark</span>
+        <span class="topic-tag">Folium</span>
+        <span class="topic-tag">geospatial</span>
+        <span class="topic-tag">choropleth</span>
+        <span class="topic-tag">data-engineering</span>
+      </div>
+      <div class="card-footer" style="justify-content:flex-start; border-top: 1px solid var(--cream-dim); padding-top:12px;">
+        <span style="font-size:.82rem; color:var(--text-muted); font-style:italic;">University coursework — code available to verified employers</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
     <!-- Bottom GitHub CTA -->
     <div class="github-prompt">
       <p>Want to see everything, including works in progress?</p>
